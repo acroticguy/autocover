@@ -31,6 +31,25 @@ def render_main_page():
         else:
             st.warning("Please enter a LinkedIn job URL.")
 
+    # Manual text input option
+    with st.expander("Or paste job description manually"):
+        manual_description = st.text_area(
+            "Job Description",
+            height=200,
+            placeholder="Paste the job description here..."
+        )
+        if st.button("Use This Description"):
+            if manual_description.strip():
+                st.session_state.job_description = manual_description.strip()
+                st.session_state.job_url = ""
+                st.session_state.job_parsed = True
+                # Clear previous generation results
+                st.session_state.cover_letter = ""
+                st.session_state.current_answer = ""
+                st.rerun()
+            else:
+                st.warning("Please paste a job description.")
+
     # Show action buttons after successful parse
     if st.session_state.get("job_parsed"):
         st.success("Job description loaded!")
