@@ -24,6 +24,7 @@ def render_cover_letter():
     about_me = profile.about_me if profile else ""
     cv_text = profile.cv_text if profile else ""
     job_description = st.session_state.get("job_description", "")
+    job_notes = st.session_state.get("job_notes", "")
 
     if not about_me or not cv_text:
         st.warning("Please set up your profile first (About Me and CV).")
@@ -45,6 +46,7 @@ def render_cover_letter():
                     about_me=about_me,
                     cv_text=cv_text,
                     job_description=job_description,
+                    job_notes=job_notes,
                     temperature=0.7
                 )
                 st.session_state.cover_letter = cover_letter

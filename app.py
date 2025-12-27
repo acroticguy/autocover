@@ -22,6 +22,8 @@ if "current_question" not in st.session_state:
     st.session_state.current_question = ""
 if "current_answer" not in st.session_state:
     st.session_state.current_answer = ""
+if "job_notes" not in st.session_state:
+    st.session_state.job_notes = ""
 
 # Header with profile button
 col1, col2 = st.columns([4, 1])

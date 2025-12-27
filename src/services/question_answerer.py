@@ -24,13 +24,16 @@ CANDIDATE'S CV/RESUME:
 JOB THEY'RE APPLYING FOR:
 {job_description}
 
+CANDIDATE'S PERSONAL NOTES ABOUT THIS JOB (use this context to make answers more personal and authentic - incorporate naturally if provided):
+{job_notes}
+
 GUIDELINES:
 - Answer the specific question asked
 - Use concrete examples from the CV when relevant
 - Keep it concise (2-4 paragraphs typically)
 - Sound confident but genuine
 - Match the formality level of the question
-- If the question asks about motivation/interest in the company, reference specific things from the job posting
+- If the question asks about motivation/interest in the company, reference specific things from the job posting and the candidate's personal notes
 
 Write the answer now. Output ONLY the answer text, no explanations or metadata."""
 
@@ -40,6 +43,7 @@ def generate_answer(
     about_me: str,
     cv_text: str,
     job_description: str,
+    job_notes: str = "",
     temperature: float = 0.7
 ) -> str:
     """
@@ -50,6 +54,7 @@ def generate_answer(
         about_me: Candidate's background and motivations
         cv_text: Candidate's CV content
         job_description: The job posting description
+        job_notes: Optional personal notes about the job/company
         temperature: Creativity level
 
     Returns:
@@ -59,7 +64,8 @@ def generate_answer(
         question=question,
         about_me=about_me,
         cv_text=cv_text,
-        job_description=job_description
+        job_description=job_description,
+        job_notes=job_notes if job_notes else "No additional notes provided."
     )
 
     client = get_gemini_client()

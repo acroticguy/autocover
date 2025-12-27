@@ -43,6 +43,9 @@ CANDIDATE'S CV/RESUME:
 JOB THEY'RE APPLYING FOR:
 {job_description}
 
+CANDIDATE'S PERSONAL NOTES ABOUT THIS JOB (use this context to make the letter more personal and authentic - incorporate naturally if provided):
+{job_notes}
+
 Write the motivation letter now. Output ONLY the letter text. No headers, no subject lines, no explanations."""
 
 
@@ -50,6 +53,7 @@ def generate_cover_letter(
     about_me: str,
     cv_text: str,
     job_description: str,
+    job_notes: str = "",
     temperature: float = 0.7
 ) -> str:
     """
@@ -59,6 +63,7 @@ def generate_cover_letter(
         about_me: Text describing the candidate's background, motivations, character
         cv_text: Extracted text from the candidate's CV
         job_description: The job posting description
+        job_notes: Optional personal notes about the job/company
         temperature: Controls creativity (0.0-1.0)
 
     Returns:
@@ -67,7 +72,8 @@ def generate_cover_letter(
     prompt = COVER_LETTER_PROMPT.format(
         about_me=about_me,
         cv_text=cv_text,
-        job_description=job_description
+        job_description=job_description,
+        job_notes=job_notes if job_notes else "No additional notes provided."
     )
 
     client = get_gemini_client()

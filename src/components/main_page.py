@@ -13,6 +13,17 @@ def render_main_page():
         placeholder="https://www.linkedin.com/jobs/view/XXXXXXXXXX"
     )
 
+    # Optional job notes section
+    with st.expander("Add personal notes about this job (optional)"):
+        job_notes = st.text_area(
+            "Job Notes",
+            value=st.session_state.get("job_notes", ""),
+            height=120,
+            placeholder="Examples:\n• I applied here before and they said they liked my resume\n• This is my dream company to work for\n• I was referred by a friend who works there\n• I previously interned at this company",
+            help="Add any personal context about your relationship with this company or position. This will be used to personalize your cover letter and answers."
+        )
+        st.session_state.job_notes = job_notes
+
     # Parse button
     if st.button("Parse", type="primary"):
         if job_url:
